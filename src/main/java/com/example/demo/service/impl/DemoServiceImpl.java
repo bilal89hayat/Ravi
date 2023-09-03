@@ -14,7 +14,10 @@ public class DemoServiceImpl implements DemoService {
 
     @Autowired
     RestTemplate restTemplate;
-
+    @Autowired
+    PostStrategy postStrategy;
+    @Autowired
+    DeleteStrategy deleteStrategy;
 
     @Override
     public ResponseEntity getRestTemplateObject(AmazonPayload amazonPayload) {
@@ -22,13 +25,13 @@ public class DemoServiceImpl implements DemoService {
         String httpMethod = amazonPayload.getHttpMethod().toUpperCase();
         switch (httpMethod){
             case "POST" :
-                //restTemplate.postForEntity();
+                postStrategy.executeStrategy("url", "body");
 
             case "GET":
                 //restTemplate.getForEntity();
 
             case "DELETE":
-                //restTemplate.delete();
+                deleteStrategy.executeStrategy("url", "");
 
             case  "UPDATE":
                 //restTemplate.patchForObject();
